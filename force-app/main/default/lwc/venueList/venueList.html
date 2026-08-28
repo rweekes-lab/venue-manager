@@ -1,0 +1,122 @@
+<template>
+    <template lwc:if={hasVenues}>
+        <ul class="slds-grid slds-wrap slds-var-p-horizontal_medium">
+            <template for:each={decoratedVenues} for:item="venue">
+                <li
+                    key={venue.Id}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-var-p-around_x-small"
+                >
+                    <article class="slds-card slds-card_boundary slds-var-p-around_medium venue-card">
+                        <header class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+                            <h2 class="slds-text-heading_small slds-truncate" title={venue.Name}>
+                                {venue.Name}
+                            </h2>
+                            <span class={venue.statusClass}>{venue.statusLabel}</span>
+                        </header>
+
+                        <template lwc:if={venue.Photo_URL__c}>
+                            <div class="slds-var-m-vertical_small">
+                                <img
+                                    src={venue.Photo_URL__c}
+                                    alt={venue.Name}
+                                    class="venue-photo"
+                                />
+                            </div>
+                        </template>
+
+                        <dl class="slds-var-m-top_x-small slds-text-body_small">
+                            <template lwc:if={venue.cityState}>
+                                <div class="slds-grid">
+                                    <lightning-icon icon-name="utility:location" size="xx-small" class="slds-var-m-right_xx-small"></lightning-icon>
+                                    <dd>{venue.cityState}</dd>
+                                </div>
+                            </template>
+                            <template lwc:if={venue.Capacity__c}>
+                                <div class="slds-grid slds-var-m-top_xx-small">
+                                    <lightning-icon icon-name="utility:groups" size="xx-small" class="slds-var-m-right_xx-small"></lightning-icon>
+                                    <dd>Capacity: {venue.Capacity__c}</dd>
+                                </div>
+                            </template>
+                            <template lwc:if={venue.Booking_Rate__c}>
+                                <div class="slds-grid slds-var-m-top_xx-small">
+                                    <lightning-icon icon-name="utility:moneybag" size="xx-small" class="slds-var-m-right_xx-small"></lightning-icon>
+                                    <dd>
+                                        <lightning-formatted-number
+                                            value={venue.Booking_Rate__c}
+                                            format-style="currency"
+                                        ></lightning-formatted-number>
+                                        &nbsp;{venue.Rate_Unit__c}
+                                    </dd>
+                                </div>
+                            </template>
+                            <template lwc:if={venue.Contact_Name__c}>
+                                <div class="slds-grid slds-var-m-top_xx-small">
+                                    <lightning-icon icon-name="utility:user" size="xx-small" class="slds-var-m-right_xx-small"></lightning-icon>
+                                    <dd>{venue.Contact_Name__c}</dd>
+                                </div>
+                            </template>
+                        </dl>
+
+                        <template lwc:if={venue.hasAmenities}>
+                            <div class="slds-var-m-top_x-small">
+                                <template for:each={venue.amenities} for:item="amenity">
+                                    <lightning-badge key={amenity} label={amenity}></lightning-badge>
+                                </template>
+                            </div>
+                        </template>
+
+                        <template lwc:if={venue.tagList.length}>
+                            <div class="slds-var-m-top_xx-small slds-text-color_weak slds-text-body_small">
+                                <template for:each={venue.tagList} for:item="tag">
+                                    <span key={tag} class="slds-var-m-right_xx-small">#{tag}</span>
+                                </template>
+                            </div>
+                        </template>
+
+                        <footer class="slds-var-m-top_small slds-grid slds-grid_align-end">
+                            <template lwc:if={venue.Website_URL__c}>
+                                <lightning-button-icon
+                                    icon-name="utility:new_window"
+                                    alternative-text="Open website"
+                                    title="Open website"
+                                    variant="border-filled"
+                                    class="slds-var-m-right_xx-small"
+                                    onclick={handleOpenSite}
+                                    data-url={venue.Website_URL__c}
+                                ></lightning-button-icon>
+                            </template>
+                            <lightning-button-icon
+                                icon-name="utility:edit"
+                                alternative-text="Edit venue"
+                                title="Edit"
+                                variant="border-filled"
+                                class="slds-var-m-right_xx-small"
+                                data-id={venue.Id}
+                                onclick={handleEdit}
+                            ></lightning-button-icon>
+                            <lightning-button-icon
+                                icon-name="utility:delete"
+                                alternative-text="Delete venue"
+                                title="Delete"
+                                variant="border-filled-destructive"
+                                data-id={venue.Id}
+                                onclick={handleDelete}
+                            ></lightning-button-icon>
+                        </footer>
+                    </article>
+                </li>
+            </template>
+        </ul>
+    </template>
+
+    <template lwc:else>
+        <div class="slds-illustration slds-illustration_small slds-var-p-around_large slds-text-align_center">
+            <div class="slds-text-longform">
+                <h3 class="slds-text-heading_medium">No venues yet</h3>
+                <p class="slds-text-body_regular">
+                    Click <strong>New Venue</strong> to add your first event venue.
+                </p>
+            </div>
+        </div>
+    </template>
+</template>

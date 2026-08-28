@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Venue Manager Access</label>
+    <description>Grants full CRUD on Venue records and access to the Venue Manager UI.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <objectPermissions>
+        <object>Venue__c</object>
+        <allowCreate>true</allowCreate>
+        <allowRead>true</allowRead>
+        <allowEdit>true</allowEdit>
+        <allowDelete>true</allowDelete>
+        <viewAllRecords>true</viewAllRecords>
+        <modifyAllRecords>true</modifyAllRecords>
+    </objectPermissions>
+    <fieldPermissions><field>Venue__c.Street__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.City__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.State__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.PostalCode__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Country__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Capacity__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Contact_Name__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Contact_Email__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Contact_Phone__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Description__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Active__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Opening_Time__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Closing_Time__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Booking_Rate__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Rate_Unit__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Photo_URL__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Website_URL__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Has_Parking__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Has_Catering__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Has_AV__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Is_Accessible__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Venue__c.Tags__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <tabSettings>
+        <tab>Venue__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Venue_Manager_Home</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

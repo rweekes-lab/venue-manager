@@ -1,0 +1,8 @@
+# Local dev server
+**/.localdevserver
+
+# Node
+node_modules
+
+# LWC Jest tests are not deployable metadata
+**/__tests__/**

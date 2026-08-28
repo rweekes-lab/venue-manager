@@ -1,0 +1,14 @@
+{
+  "name": "venue-manager",
+  "private": true,
+  "version": "1.0.0",
+  "description": "LWC + Apex Venue Manager for any Salesforce org",
+  "scripts": {
+    "test": "sfdx-lwc-jest",
+    "test:unit": "sfdx-lwc-jest",
+    "test:unit:watch": "sfdx-lwc-jest --watch"
+  },
+  "devDependencies": {
+    "@salesforce/sfdx-lwc-jest": "^5.1.0"
+  }
+}

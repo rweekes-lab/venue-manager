@@ -1,0 +1,50 @@
+<template>
+    <lightning-card title="Event Venues" icon-name="custom:custom45">
+        <span slot="actions">
+            <lightning-button
+                label="New Venue"
+                variant="brand"
+                icon-name="utility:add"
+                onclick={handleNew}
+            ></lightning-button>
+        </span>
+
+        <div class="slds-var-p-horizontal_medium slds-var-p-bottom_small">
+            <lightning-input
+                type="search"
+                label="Search venues"
+                variant="label-hidden"
+                placeholder="Search by name, city, or tag…"
+                onchange={handleSearch}
+            ></lightning-input>
+            <p class="slds-text-body_small slds-text-color_weak slds-var-p-top_xx-small">
+                {venueCount} venue(s)
+            </p>
+        </div>
+
+        <template lwc:if={error}>
+            <div class="slds-var-m-horizontal_medium slds-var-m-bottom_small">
+                <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <span>{error}</span>
+                </div>
+            </div>
+        </template>
+
+        <c-venue-list
+            venues={venues}
+            has-venues={hasVenues}
+            onedit={handleEdit}
+            ondelete={handleDelete}
+        ></c-venue-list>
+    </lightning-card>
+
+    <template lwc:if={showForm}>
+        <c-venue-form
+            venue={selectedVenue}
+            is-saving={isSaving}
+            onsave={handleSave}
+            oncancel={handleCloseForm}
+        ></c-venue-form>
+    </template>
+</template>

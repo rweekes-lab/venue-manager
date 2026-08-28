@@ -1,0 +1,159 @@
+<template>
+    <section
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        aria-labelledby="modal-heading"
+        class="slds-modal slds-fade-in-open"
+    >
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    title="Close"
+                    onclick={handleCancel}
+                >
+                    <lightning-icon icon-name="utility:close" alternative-text="Close" size="small" variant="inverse"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h1 id="modal-heading" class="slds-modal__title slds-hyphenate">{header}</h1>
+            </header>
+
+            <div class="slds-modal__content slds-var-p-around_medium" id="modal-content">
+                <!-- Core -->
+                <h2 class="slds-text-title_caps slds-var-m-bottom_x-small">Details</h2>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input
+                            label="Venue Name"
+                            data-field="Name"
+                            value={record.Name}
+                            required
+                            onchange={handleFieldChange}
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input
+                            type="number"
+                            label="Capacity"
+                            data-field="Capacity__c"
+                            value={record.Capacity__c}
+                            min="0"
+                            onchange={handleFieldChange}
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input
+                            type="checkbox"
+                            label="Active"
+                            data-field="Active__c"
+                            checked={record.Active__c}
+                            onchange={handleFieldChange}
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-textarea
+                            label="Description"
+                            data-field="Description__c"
+                            value={record.Description__c}
+                            onchange={handleFieldChange}
+                        ></lightning-textarea>
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <h2 class="slds-text-title_caps slds-var-m-vertical_x-small">Address</h2>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input label="Street" data-field="Street__c" value={record.Street__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input label="City" data-field="City__c" value={record.City__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input label="State/Province" data-field="State__c" value={record.State__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input label="Postal Code" data-field="PostalCode__c" value={record.PostalCode__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input label="Country" data-field="Country__c" value={record.Country__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <h2 class="slds-text-title_caps slds-var-m-vertical_x-small">Contact</h2>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input label="Contact Name" data-field="Contact_Name__c" value={record.Contact_Name__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="email" label="Contact Email" data-field="Contact_Email__c" value={record.Contact_Email__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="tel" label="Contact Phone" data-field="Contact_Phone__c" value={record.Contact_Phone__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                </div>
+
+                <!-- Scheduling -->
+                <h2 class="slds-text-title_caps slds-var-m-vertical_x-small">Scheduling &amp; Pricing</h2>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="time" label="Opening Time" data-field="Opening_Time__c" value={record.Opening_Time__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="time" label="Closing Time" data-field="Closing_Time__c" value={record.Closing_Time__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="number" formatter="currency" step="0.01" label="Booking Rate" data-field="Booking_Rate__c" value={record.Booking_Rate__c} min="0" onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-combobox label="Rate Unit" data-field="Rate_Unit__c" value={record.Rate_Unit__c} options={rateUnitOptions} onchange={handleFieldChange}></lightning-combobox>
+                    </div>
+                </div>
+
+                <!-- Media -->
+                <h2 class="slds-text-title_caps slds-var-m-vertical_x-small">Media &amp; Links</h2>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input type="url" label="Photo URL" data-field="Photo_URL__c" value={record.Photo_URL__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input type="url" label="Website / Map URL" data-field="Website_URL__c" value={record.Website_URL__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                </div>
+
+                <!-- Amenities -->
+                <h2 class="slds-text-title_caps slds-var-m-vertical_x-small">Amenities &amp; Tags</h2>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="checkbox" label="Parking Available" data-field="Has_Parking__c" checked={record.Has_Parking__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="checkbox" label="Catering Available" data-field="Has_Catering__c" checked={record.Has_Catering__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="checkbox" label="A/V Equipment" data-field="Has_AV__c" checked={record.Has_AV__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="checkbox" label="Wheelchair Accessible" data-field="Is_Accessible__c" checked={record.Is_Accessible__c} onchange={handleFieldChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input label="Tags" data-field="Tags__c" value={record.Tags__c} field-level-help="Comma-separated, e.g. rooftop, outdoor, historic" onchange={handleFieldChange}></lightning-input>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <lightning-button label="Cancel" onclick={handleCancel} class="slds-var-m-right_x-small"></lightning-button>
+                <lightning-button
+                    label="Save"
+                    variant="brand"
+                    onclick={handleSave}
+                    disabled={isSaving}
+                ></lightning-button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

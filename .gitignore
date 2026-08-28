@@ -1,0 +1,17 @@
+# Salesforce / SFDX
+.sfdx/
+.sf/
+.localdevserver/
+deploy-options.json
+**/*.log
+
+# Node
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
