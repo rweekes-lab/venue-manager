@@ -71,6 +71,18 @@ describe('c-venue-list', () => {
         });
     });
 
+    it('renders the description when present and omits it when absent', () => {
+        const withDescription = [
+            { ...SAMPLE[0], Description__c: 'A rooftop venue with skyline views.' }
+        ];
+        const element = createComponent({ venues: withDescription, hasVenues: true });
+        return Promise.resolve().then(() => {
+            expect(element.shadowRoot.textContent).toContain(
+                'A rooftop venue with skyline views.'
+            );
+        });
+    });
+
     it('dispatches an edit event carrying the venue id', () => {
         const element = createComponent({ venues: SAMPLE, hasVenues: true });
         const handler = jest.fn();

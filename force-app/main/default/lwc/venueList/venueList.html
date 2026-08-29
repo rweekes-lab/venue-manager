@@ -61,6 +61,12 @@
                             </template>
                         </dl>
 
+                        <template lwc:if={venue.Description__c}>
+                            <p class="slds-var-m-top_x-small slds-text-body_small slds-line-clamp_medium">
+                                {venue.Description__c}
+                            </p>
+                        </template>
+
                         <template lwc:if={venue.hasAmenities}>
                             <div class="slds-var-m-top_x-small">
                                 <template for:each={venue.amenities} for:item="amenity">
