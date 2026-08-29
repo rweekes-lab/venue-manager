@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tickets_Not_Exceed_Capacity</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(Venue__c)),
+    NOT(ISBLANK(Tickets_Sold__c)),
+    Tickets_Sold__c &gt; Venue__r.Capacity__c
+)</errorConditionFormula>
+    <errorMessage>Tickets Sold cannot exceed the venue&apos;s capacity.</errorMessage>
+</ValidationRule>
