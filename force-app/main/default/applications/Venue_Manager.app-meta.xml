@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Open Venue records with the custom Venue Record Page inside this app.</comment>
+        <content>Venue_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Venue__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Open Venue records with the custom Venue Record Page inside this app.</comment>
+        <content>Venue_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Venue__c</pageOrSobjectType>
+    </actionOverrides>
     <label>Venue Manager</label>
     <description>Manage event venues: search, create, edit, and delete.</description>
     <formFactors>Large</formFactors>
