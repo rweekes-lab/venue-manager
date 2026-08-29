@@ -16,6 +16,18 @@ public without sharing class EventTicketTriggerHandler {
             return;
         }
 
+        // Lock the parent rows before counting children. Concurrent trigger transactions
+        // (e.g. parallel Bulk API batches) touching the same Venue_Event__c would otherwise
+        // each read an independent COUNT() snapshot and race to overwrite Tickets_Sold__c -
+        // the last one to commit wins, even if its snapshot was taken first and is stale.
+        // FOR UPDATE serializes those transactions on the parent row so counts stay accurate.
+        Map<Id, Venue_Event__c> eventsById = new Map<Id, Venue_Event__c>([
+            SELECT Id, Venue__c, Venue__r.Capacity__c, Tickets_Sold__c
+            FROM Venue_Event__c
+            WHERE Id IN :eventIds
+            FOR UPDATE
+        ]);
+
         Map<Id, Integer> countByEvent = new Map<Id, Integer>();
         for (AggregateResult ar : [
             SELECT Venue_Event__c vid, COUNT(Id) cnt
@@ -25,12 +37,6 @@ public without sharing class EventTicketTriggerHandler {
         ]) {
             countByEvent.put((Id) ar.get('vid'), (Integer) ar.get('cnt'));
         }
-
-        Map<Id, Venue_Event__c> eventsById = new Map<Id, Venue_Event__c>([
-            SELECT Id, Venue__c, Venue__r.Capacity__c, Tickets_Sold__c
-            FROM Venue_Event__c
-            WHERE Id IN :eventIds
-        ]);
 
         List<Venue_Event__c> toUpdate = new List<Venue_Event__c>();
         for (Id eventId : eventIds) {
