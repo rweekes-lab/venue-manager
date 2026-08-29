@@ -25,6 +25,15 @@
         <viewAllRecords>true</viewAllRecords>
         <modifyAllRecords>true</modifyAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <object>Event_Ticket__c</object>
+        <allowCreate>true</allowCreate>
+        <allowRead>true</allowRead>
+        <allowEdit>true</allowEdit>
+        <allowDelete>true</allowDelete>
+        <viewAllRecords>true</viewAllRecords>
+        <modifyAllRecords>true</modifyAllRecords>
+    </objectPermissions>
     <fieldPermissions><field>Venue__c.Street__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Venue__c.City__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Venue__c.State__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
@@ -52,6 +61,10 @@
     <fieldPermissions><field>Venue_Event__c.End_Time__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Venue_Event__c.Tickets_Sold__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Venue_Event__c.Description__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Event_Ticket__c.Venue_Event__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Event_Ticket__c.Attendee_Name__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Event_Ticket__c.Attendee_Email__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Event_Ticket__c.Price__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <tabSettings>
         <tab>Venue__c</tab>
         <visibility>Visible</visibility>
