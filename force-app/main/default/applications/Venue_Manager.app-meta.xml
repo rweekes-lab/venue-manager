@@ -24,7 +24,7 @@
     <formFactors>Small</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <navType>Standard</navType>
+    <navType>Console</navType>
     <uiType>Lightning</uiType>
     <brand>
         <headerColor>#0B5CAB</headerColor>
