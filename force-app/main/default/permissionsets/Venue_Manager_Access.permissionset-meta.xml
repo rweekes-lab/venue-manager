@@ -3,6 +3,10 @@
     <label>Venue Manager Access</label>
     <description>Grants full CRUD on Venue records and access to the Venue Manager UI.</description>
     <hasActivationRequired>false</hasActivationRequired>
+    <applicationVisibilities>
+        <application>Venue_Manager</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <objectPermissions>
         <object>Venue__c</object>
         <allowCreate>true</allowCreate>
