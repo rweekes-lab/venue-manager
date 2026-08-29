@@ -10,6 +10,9 @@ node_modules/
 package-lock.json
 npm-debug.log*
 
+# Scratch data-load files
+data/
+
 # OS / editor
 .DS_Store
 .idea/
