@@ -1,6 +1,30 @@
 import { createElement } from 'lwc';
 import VenueList from 'c/venueList';
 
+// Capture NavigationMixin.Navigate calls: the sfdx-lwc-jest stub ships a
+// no-op Navigate, so we wrap it to record the page reference it receives.
+const mockNavigate = jest.fn();
+jest.mock(
+    'lightning/navigation',
+    () => {
+        const Navigate = Symbol('Navigate');
+        const GenerateUrl = Symbol('GenerateUrl');
+        const NavigationMixin = (Base) =>
+            class extends Base {
+                [Navigate](pageReference) {
+                    mockNavigate(pageReference);
+                }
+                [GenerateUrl]() {
+                    return Promise.resolve('https://example.com');
+                }
+            };
+        NavigationMixin.Navigate = Navigate;
+        NavigationMixin.GenerateUrl = GenerateUrl;
+        return { NavigationMixin };
+    },
+    { virtual: true }
+);
+
 const SAMPLE = [
     {
         Id: 'a01',
@@ -20,6 +44,7 @@ describe('c-venue-list', () => {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
+        mockNavigate.mockClear();
     });
 
     function createComponent(props = {}) {
@@ -72,6 +97,21 @@ describe('c-venue-list', () => {
             const delBtn = icons.find((i) => i.title === 'Delete');
             delBtn.click();
             expect(handler.mock.calls[0][0].detail.venueId).toBe('a01');
+        });
+    });
+
+    it('navigates to the venue record page when the name is clicked', () => {
+        const element = createComponent({ venues: SAMPLE, hasVenues: true });
+        return Promise.resolve().then(() => {
+            const link = element.shadowRoot.querySelector('header a');
+            expect(link.textContent).toBe('Grand Hall');
+            link.click();
+            expect(mockNavigate).toHaveBeenCalled();
+            const pageReference = mockNavigate.mock.calls[0][0];
+            expect(pageReference.type).toBe('standard__recordPage');
+            expect(pageReference.attributes.recordId).toBe('a01');
+            expect(pageReference.attributes.objectApiName).toBe('Venue__c');
+            expect(pageReference.attributes.actionName).toBe('view');
         });
     });
 });

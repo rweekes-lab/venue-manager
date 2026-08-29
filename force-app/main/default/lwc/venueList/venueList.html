@@ -9,7 +9,11 @@
                     <article class="slds-card slds-card_boundary slds-var-p-around_medium venue-card">
                         <header class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
                             <h2 class="slds-text-heading_small slds-truncate" title={venue.Name}>
-                                {venue.Name}
+                                <a
+                                    href="#"
+                                    data-id={venue.Id}
+                                    onclick={handleNavigate}
+                                >{venue.Name}</a>
                             </h2>
                             <span class={venue.statusClass}>{venue.statusLabel}</span>
                         </header>

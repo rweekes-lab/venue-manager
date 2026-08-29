@@ -1,10 +1,12 @@
 import { LightningElement, api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 
 /**
  * Presentational list of venues rendered as cards. Emits `edit` and `delete`
- * events (carrying the venue Id) up to the parent; holds no data of its own.
+ * events (carrying the venue Id) up to the parent, and navigates to a venue's
+ * record page when its name is clicked. Holds no data of its own.
  */
-export default class VenueList extends LightningElement {
+export default class VenueList extends NavigationMixin(LightningElement) {
     @api venues = [];
     @api hasVenues = false;
 
@@ -30,6 +32,23 @@ export default class VenueList extends LightningElement {
                     ? 'slds-badge slds-badge_success'
                     : 'slds-badge'
             };
+        });
+    }
+
+    handleNavigate(event) {
+        // Let the browser handle modifier-clicks (open in new tab) natively.
+        if (event.metaKey || event.ctrlKey) {
+            return;
+        }
+        event.preventDefault();
+        const venueId = event.currentTarget.dataset.id;
+        this[NavigationMixin.Navigate]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: venueId,
+                objectApiName: 'Venue__c',
+                actionName: 'view'
+            }
         });
     }
 
