@@ -65,7 +65,7 @@
     </miniLayout>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Attendee_Name__c</fields>
+        <fields>Contact__c</fields>
         <fields>Price__c</fields>
         <relatedList>Event_Ticket__c.Venue_Event__c</relatedList>
     </relatedLists>

@@ -83,7 +83,7 @@ private class ContactTicketRollupHandlerTest {
     @isTest
     static void ticketWithoutContact_allowedAndNoRollupTouched() {
         Test.startTest();
-        insert new Event_Ticket__c(Attendee_Name__c = 'No Contact Here');
+        insert new Event_Ticket__c();
         Test.stopTest();
 
         System.assertEquals(1, [SELECT COUNT() FROM Event_Ticket__c]);

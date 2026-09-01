@@ -62,7 +62,6 @@
     <fieldPermissions><field>Venue_Event__c.Tickets_Sold__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Venue_Event__c.Description__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Event_Ticket__c.Venue_Event__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
-    <fieldPermissions><field>Event_Ticket__c.Attendee_Name__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Event_Ticket__c.Attendee_Email__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Event_Ticket__c.Price__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
     <fieldPermissions><field>Event_Ticket__c.Contact__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
