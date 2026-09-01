@@ -1,21 +1,29 @@
 # Venue Manager
 
-A Lightning Web Component bundle for managing event venues in **any** Salesforce org. Users can search, create, edit, and delete venues from a single Lightning page, tab, or record page.
+A Salesforce app for managing event venues, their events, and ticket sales in **any** Salesforce org. Users can search, create, edit, and delete venues from a Lightning Web Component, then track events and ticket sales against them with automatic capacity enforcement.
+
+This repo ships **metadata only** — objects, fields, code, layouts, the permission set, and UI. No Venue, Venue Event, Event Ticket, or Contact records are included or created by a deploy; whoever installs it starts with an empty app on top of their org's existing Contacts.
 
 ## What's included
 
 | Layer | Component | Purpose |
 |-------|-----------|---------|
 | Data | `Venue__c` custom object (22 custom fields) | Stores venue records |
-| Apex | `VenueController` | CRUD with sharing + FLS/CRUD enforcement |
-| Apex | `VenueControllerTest` | Unit tests (100% of controller) |
+| Data | `Venue_Event__c` custom object | An event at a venue; rolls up `Tickets_Sold__c` |
+| Data | `Event_Ticket__c` custom object | A ticket, linked to a `Venue_Event__c` and a `Contact__c` |
+| Data | `Contact.Tickets_Purchased__c` (custom field) | Rollup of tickets purchased, added to the standard Contact object |
+| Apex | `VenueController` (+ test) | CRUD with sharing + FLS/CRUD enforcement |
+| Apex | `EventTicketTriggerHandler` (+ test) | Enforces venue capacity, keeps `Tickets_Sold__c` in sync |
+| Apex | `ContactTicketRollupHandler` (+ test) | Keeps `Contact.Tickets_Purchased__c` in sync |
 | LWC | `venueManager` | Orchestrator: search, list, modal, toasts, Apex calls |
 | LWC | `venueList` | Presentational venue cards, emits edit/delete |
 | LWC | `venueForm` | Modal create/edit form |
-| Access | `Venue_Manager_Access` permission set | CRUD + FLS + tab visibility |
-| UI | `Venue__c` tab + `All Venues` list view | Standard navigation |
+| Access | `Venue_Manager_Access` permission set | CRUD + FLS + tab visibility across all of the above |
+| UI | `Venue_Manager` app, `Venue__c`/`Venue_Manager_Home` tabs, Venue/Venue Event/Event Ticket record pages and layouts | Standard navigation |
 
 Only `venueManager` is exposed to App Builder — drop it on any App Page, Home Page, Record Page, or a custom Tab.
+
+**Not included by design:** a page layout for the standard Contact object. This org's own Contact layout is entangled with quick actions and fields from unrelated managed packages, so it isn't portable. If you want the Event Tickets related list on Contact, add it to your org's Contact layout after installing (Setup → Object Manager → Contact → Page Layouts → add the `Event_Ticket__c.Contact__c` related list).
 
 ## Venue fields
 
